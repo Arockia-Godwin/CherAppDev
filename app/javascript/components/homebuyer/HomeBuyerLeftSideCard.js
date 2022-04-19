@@ -89,17 +89,17 @@ function HomeBuyerLeftSideCard({ cardClicked, setCardClicked }) {
                   setCardClicked(!cardClicked);
                 }}
               >
-                <i class=" fa fa-bed"></i>&nbsp; {cardInfo.beds} beds
+                <i className=" fa fa-bed"></i>&nbsp; {cardInfo.beds} beds
               </p>
             </div>
             <div className="col pm0">
               <p>
-                <i class="fa fa-bath"></i>&nbsp; {cardInfo.baths} Baths{" "}
+                <i className="fa fa-bath"></i>&nbsp; {cardInfo.baths} Baths{" "}
               </p>
             </div>
             <div className="col pm0">
               <p>
-                <i class="fa fa-clone"></i>&nbsp; {cardInfo.sqft} sqft{" "}
+                <i className="fa fa-clone"></i>&nbsp; {cardInfo.sqft} sqft{" "}
               </p>
             </div>
           </div>
@@ -109,11 +109,11 @@ function HomeBuyerLeftSideCard({ cardClicked, setCardClicked }) {
               setCardClicked(!cardClicked);
             }}
           >
-            <h5 class="pm0  bed-h5">4793 N Mayfield Avenue</h5>
-            <p class="pm0 mt-1 bed-p">San Bernardino, CA 92407 </p>
+            <h5 className="pm0  bed-h5">4793 N Mayfield Avenue</h5>
+            <p className="pm0 mt-1 bed-p">San Bernardino, CA 92407 </p>
           </div>
           <div className="col-12  pm0 mb-2 bed-section row">
-            <div class="col-md-6 pm0">
+            <div className="col-md-6 pm0">
               <button
                 className="btn btn-text-dark w-100 btn-primary"
                 onClick={() => {
@@ -124,7 +124,7 @@ function HomeBuyerLeftSideCard({ cardClicked, setCardClicked }) {
                 Add to Groups
               </button>
             </div>
-            <div class="col-md-6  pm0">
+            <div className="col-md-6  pm0">
               <button
                 className="btn float-right btn-text-light  btn-outline-dark"
                 onClick={() => {

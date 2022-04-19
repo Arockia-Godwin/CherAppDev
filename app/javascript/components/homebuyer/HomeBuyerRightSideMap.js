@@ -378,7 +378,7 @@ function HomeBuyerRightSideMap({ cardClicked }) {
         bootstrapURLKeys={{ key: "AIzaSyCSLSZ4uesQ-2Er85fECnQJ_5kuGteLrWY" }}
         style={{ height: "90vh" }}
         defaultZoom={10}
-        options={{ styles: theme }}
+        options={{ styles: theme, mapTypeControl: true }}
         resetBoundsOnResize={true}
         defaultCenter={{ lat: 47.36667, lng: 8.55 }}
       >
