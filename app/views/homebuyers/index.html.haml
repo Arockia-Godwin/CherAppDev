@@ -10,3 +10,5 @@
     - @homebuyers.each do |homebuyer|
       .profile-user{ 'data-controller': 'users-profile-picture' }
         = link_to image_tag(homebuyer.profile_image, class: 'bordered-image', 'data-action': 'error->users-profile-picture#setDefaultPicture'), user_path(homebuyer)
+
+%script{:src => "https://maps.googleapis.com/maps/api/js?key=AIzaSyCSLSZ4uesQ-2Er85fECnQJ_5kuGteLrWY&libraries=places", :type => "text/javascript"}
