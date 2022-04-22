@@ -14,6 +14,8 @@ const Filter = (props) => {
     setTarget(event.target);
   };
 
+  const [hour, setHour] = useState(null);
+
   return (
     <Form>
       <div ref={ref}>
@@ -65,7 +67,7 @@ const Filter = (props) => {
                 </div>
                 <div className="col-md-6">
                   <Form.Select aria-label="Default select example">
-                    <option>Open this select menu</option>
+                    <option>Minute</option>
                     <option value="1">0</option>
                     <option value="2">10</option>
                     <option value="3">20</option>
