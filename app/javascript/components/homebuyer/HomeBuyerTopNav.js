@@ -15,9 +15,9 @@ const options = [
   { value: "California", label: "California" },
 ];
 const budget = [
-  { value: "$100K", label: "$100K" },
-  { value: "$200K", label: "$200K" },
-  { value: "$300K", label: "$300K" },
+  { value: "100000", label: "$100K" },
+  { value: "200000", label: "$200K" },
+  { value: "300000", label: "$300K" },
 ];
 
 const bed = [
@@ -34,29 +34,32 @@ const type = [
 
 function HomeBuyerTopNav(props) {
   const [selectedCity, setSelectedCity] = useState(null);
-  const [selectedBed, setSelectedBed] = useState(null);
-  const [selectedBudget, setSelectedBudget] = useState(null);
+  // const [selectedBed, setSelectedBed] = useState(null);
+  // const [selectedBudget, setSelectedBudget] = useState(null);
   const [selectedProperties, setSelectedProperties] = useState(null);
   const [selectedType, setSelectedType] = useState(null);
 
-  console.log(selectedType);
+  console.log(props.apiControl);
 
-  useEffect(() => {
-    axios.get(
-      `https://cher.app/look-around.json?search%5Bpoints%5D=&search%5Bsearch_type%5D=cities&search%5Bsearch_in%5D=San%20Diego%2C%20CA%2C%20USA&search%5Bminprice%5D=100000&search%5Bmaxprice%5D=800000&search%5Bmonthly_minprice%5D=&search%5Bmonthly_maxprice%5D=500&search%5Bminbeds%5D=null&search%5Bminbaths%5D=null&search%5Btype%5D%5B%5D=residential&search%5Btype%5D%5B%5D=condominium&search%5Btype%5D%5B%5D=mobilehome&search%5Btype%5D%5B%5D=multifamily&search%5Bstartdate%5D=&search%5Bstart_hour%5D=&search%5Bstart_minute%5D=&search%5Bstatus%5D%5B%5D=Active&search%5Bstatus%5D%5B%5D=Pending&search%5Bminarea%5D=&search%5Bmaxarea%5D=&search%5Bminyear%5D=&search%5Bmaxyear%5D=&search%5Bminacres%5D=&search%5Bmaxacres%5D=&search%5Bwater%5D=false&search%5Bmaxdom%5D=&search%5Bfeatures%5D=&search%5BexteriorFeatures%5D=&commit=Search`
-    );
-  }, [selectedBed, selectedBudget, selectedCity, selectedType]);
+  // useEffect(() => {
+  //   axios.get(
+  //     `https://cher.app/look-around.json?search[points]=&search[search_type]=cities&search[search_in]=San Diego, CA, USA&search[minprice]=100000&search[maxprice]=800000&search[monthly_minprice]=&search[monthly_maxprice]=500&search[minbeds]=null&search[minbaths]=null&search[type][]=residential&search[type][]=condominium&search[type][]=mobilehome&search[type][]=multifamily&search[startdate]=&search[start_hour]=&search[start_minute]=&search[status][]=Active&search[status][]=Pending&search[minarea]=&search[maxarea]=&search[minyear]=&search[maxyear]=&search[minacres]=&search[maxacres]=&search[water]=false&search[maxdom]=&search[features]=&search[exteriorFeatures]=&commit=Search`
+  //   );
+  // }, [selectedBudget, selectedCity, selectedType]);
 
   const handleBudget = (e) => {
-    setSelectedBudget(e.value);
+    const updatedBudget = { maxprice: e.value };
+    props.setApiControl((apiControl) => ({ ...apiControl, ...updatedBudget }));
   };
 
   const handleBed = (e) => {
-    setSelectedBed(e.value);
+    const updatedBed = { minbeds: e.value };
+    props.setApiControl((apiControl) => ({ ...apiControl, ...updatedBed }));
   };
 
   const handleType = (e) => {
-    setSelectedType(e.value);
+    const updatedType = { type: e.value };
+    props.setApiControl((apiControl) => ({ ...apiControl, ...updatedType }));
   };
 
   return (
@@ -68,9 +71,19 @@ function HomeBuyerTopNav(props) {
           <div className="col-md-3">
             <div>
               <Autocomplete
+                style={{
+                  background: "white",
+                  height: "6vh",
+                  padding: "5px 8px",
+                }}
                 apiKey="AIzaSyCSLSZ4uesQ-2Er85fECnQJ_5kuGteLrWY"
                 onPlaceSelected={(place) => {
                   console.log(place);
+                  const updatedPlace = { cities: place.formatted_address };
+                  props.setApiControl((apiControl) => ({
+                    ...apiControl,
+                    ...updatedPlace,
+                  }));
                 }}
               />
             </div>
@@ -81,7 +94,7 @@ function HomeBuyerTopNav(props) {
               closeMenuOnSelect={false}
               components={animatedComponents}
               options={budget}
-              value={budget.find((obj) => obj.value === selectedBudget)}
+              value={budget.find((obj) => obj.value === props.apiControl.bed)}
               onChange={handleBudget}
             />
           </div>
@@ -92,7 +105,7 @@ function HomeBuyerTopNav(props) {
               closeMenuOnSelect={false}
               components={animatedComponents}
               options={bed}
-              value={bed.find((obj) => obj.value === selectedBed)}
+              value={bed.find((obj) => obj.value === props.apiControl.bed)}
               onChange={handleBed}
             />
           </div>
@@ -103,13 +116,17 @@ function HomeBuyerTopNav(props) {
               closeMenuOnSelect={false}
               components={animatedComponents}
               options={type}
-              value={type.find((obj) => obj.value === selectedType)}
+              value={type.find((obj) => obj.value === props.apiControl.type)}
               onChange={handleType}
             />
           </div>
 
           <div className="col-md-2">
-            <Filter name="More Filter" />
+            <Filter
+              name="More Filter"
+              apiControl={props.apiControl}
+              setApiControl={props.setApiControl}
+            />
           </div>
         </div>
       </div>
